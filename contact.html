@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Paycheck Clarity - Get in touch with us.">
+    <title>Contact - Paycheck Clarity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>Paycheck Clarity</h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="privacy.html" class="nav-link">Privacy</a>
+                <a href="terms.html" class="nav-link">Terms</a>
+                <a href="cookies.html" class="nav-link">Cookies</a>
+                <a href="the-only-sites.html" class="nav-link cta-link">More Sites</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Get In Touch</h2>
+            <p class="hero-description">Have questions, feedback, or found a bug? We'd love to hear from you.</p>
+        </div>
+    </section>
+
+    <!-- AD SLOT: Under Header -->
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="calculator-card">
+            <h3>Contact Us</h3>
+
+            <!-- Contact Form -->
+            <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                    <label for="contactName">Full Name *</label>
+                    <input type="text" id="contactName" name="name" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactEmail">Email Address *</label>
+                    <input type="email" id="contactEmail" name="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactMessage">Message *</label>
+                    <textarea id="contactMessage" name="message" placeholder="Your message here..." rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="calculate-btn">Send Message</button>
+            </form>
+
+            <!-- Success Message (hidden by default) -->
+            <div id="successMessage" class="results-container hidden">
+                <div class="success-box">
+                    <h4 style="color: var(--color-success); margin-bottom: var(--spacing-md);">✓ Thank You!</h4>
+                    <p>Your message has been sent. We appreciate your feedback and will get back to you as soon as possible.</p>
+                    <button class="calculate-btn" onclick="resetContactForm()" style="margin-top: var(--spacing-md);">Send Another Message</button>
+                </div>
+            </div>
+
+            <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 1px solid var(--color-border);">
+
+            <h4>Other Ways to Reach Us</h4>
+            <p>While we don't have a traditional support email yet, you can share your feedback through the form above. We read every message and appreciate your thoughts on how to make Paycheck Clarity better.</p>
+
+            <h4>What We'd Like to Hear About</h4>
+            <ul>
+                <li><strong>Bug Reports:</strong> Found a calculation error or broken feature? Let us know!</li>
+                <li><strong>Feature Requests:</strong> Ideas for new tools or improvements? We'd love to hear them.</li>
+                <li><strong>Feedback:</strong> How can we improve your experience?</li>
+                <li><strong>General Questions:</strong> Questions about how to use the calculator or understand your paycheck?</li>
+            </ul>
+
+            <p><strong>Note:</strong> This contact form is client-side only. Messages are not actually sent to a server (since we have no backend). However, you can take a screenshot of this page or manually copy the message and send it through other means if needed. We're working on a proper contact system and will update this soon!</p>
+        </div>
+    </main>
+
+    <!-- AD SLOT: Below Calculator -->
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is Paycheck Clarity accurate?</h3>
+            <p>Paycheck Clarity provides estimates based on commonly used tax rates and assumptions. Your actual paycheck may differ due to various factors including your specific W-4 withholdings, state/local taxes, filing status, and additional deductions. Always consult a tax professional for accurate information.</p>
+
+            <h3>Do you store my data?</h3>
+            <p>No. All calculations happen in your browser. We don't store, transmit, or share your information. Once you close the page, your data is cleared.</p>
+
+            <h3>Is the calculator mobile-friendly?</h3>
+            <p>Yes! Paycheck Clarity is fully responsive and works great on smartphones, tablets, and desktops.</p>
+
+            <!-- AD SLOT: In-Content -->
+
+            <h3>Can I use this for my business or tax return?</h3>
+            <p>Paycheck Clarity is for personal estimation only. For business accounting, tax returns, or financial planning, consult with a qualified professional (accountant, tax advisor, financial planner).</p>
+
+            <h3>What if I find an error?</h3>
+            <p>If you find a bug or calculation error, please use the contact form above to let us know. Include details about:</p>
+            <ul>
+                <li>The inputs you used</li>
+                <li>The expected result</li>
+                <li>The actual result you received</li>
+            </ul>
+
+            <h3>Can I suggest a feature?</h3>
+            <p>Absolutely! We'd love to hear your ideas. Use the contact form to share feature requests and suggestions.</p>
+
+            <!-- AD SLOT: Sidebar/Bottom -->
+
+            <h3>Is this site free?</h3>
+            <p>Yes, Paycheck Clarity is completely free to use. No signup, no hidden fees, no tricks.</p>
+
+            <h3>Do you make money from this?</h3>
+            <p>We may place advertising on the site in the future to help cover hosting costs. However, these are optional and don't affect your ability to use the calculator.</p>
+        </div>
+    </section>
+
+    <!-- AD SLOT: Above Footer -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; 2025 Paycheck Clarity. All rights reserved. This site is for educational and informational purposes only.</p>
+                <p>More useful tools coming soon: movie night generators, fuel cost calculators, recipe finders, prayer boards, and more.</p>
+                <p><a href="the-only-sites.html" class="footer-link">Visit The Only Sites You'll Ever Need →</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                <a href="terms.html" class="footer-link">Terms of Service</a>
+                <a href="cookies.html" class="footer-link">Cookie Policy</a>
+                <a href="about.html" class="footer-link">About Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Contact Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            // Get form values
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Simple validation
+            if (name.trim() === '' || email.trim() === '' || message.trim() === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            // Email validation
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Hide form and show success message
+            document.getElementById('contactForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            
+            // Log to console (for debugging)
+            console.log('Form submitted:', { name, email, message });
+        }
+
+        function resetContactForm() {
+            document.getElementById('contactForm').reset();
+            document.getElementById('contactForm').classList.remove('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Add CSS for success box
+        const style = document.createElement('style');
+        style.textContent = `
+            .success-box {
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+                border: 2px solid var(--color-success);
+                border-radius: 8px;
+                padding: var(--spacing-lg);
+                text-align: center;
+            }
+            
+            .success-box p {
+                color: var(--color-text-dark);
+                margin-bottom: var(--spacing-md);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

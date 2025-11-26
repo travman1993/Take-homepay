@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paycheck Clarity - Free take-home pay calculator. Estimate your net pay from salary or hourly rate instantly.">
+    <meta name="keywords" content="paycheck calculator, take-home pay, salary calculator, net pay calculator">
+    <title>Paycheck Clarity - Take-Home Pay Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>Paycheck Clarity</h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="privacy.html" class="nav-link">Privacy</a>
+                <a href="terms.html" class="nav-link">Terms</a>
+                <a href="cookies.html" class="nav-link">Cookies</a>
+                <a href="the-only-sites.html" class="nav-link cta-link">More Sites</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- AD SLOT: Under Header -->
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Know Your Real Paycheck</h2>
+            <p class="hero-description">Instantly estimate your take-home pay from salary or hourly wages. Fast, accurate, and 100% private—all calculations happen in your browser.</p>
+        </div>
+    </section>
+
+    <!-- AD SLOT: Below Header -->
+
+    <!-- Main Calculator Card -->
+    <main class="container">
+        <div class="calculator-card">
+            <h3 class="calculator-title">Calculator</h3>
+            
+            <!-- Pay Type Toggle -->
+            <div class="form-group">
+                <label>Pay Type</label>
+                <div class="toggle-group">
+                    <input type="radio" id="payTypeHourly" name="payType" value="hourly" checked>
+                    <label for="payTypeHourly" class="toggle-label">Hourly Pay</label>
+                    
+                    <input type="radio" id="payTypeSalary" name="payType" value="salary">
+                    <label for="payTypeSalary" class="toggle-label">Annual Salary</label>
+                </div>
+            </div>
+
+            <!-- Hourly Inputs (shown by default) -->
+            <div id="hourlyInputs" class="input-section">
+                <div class="form-group">
+                    <label for="hourlyRate">Hourly Rate ($)</label>
+                    <input type="number" id="hourlyRate" placeholder="25.00" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="hoursPerWeek">Hours Per Week</label>
+                    <input type="number" id="hoursPerWeek" placeholder="40" min="0" step="0.5">
+                </div>
+            </div>
+
+            <!-- Salary Inputs (hidden by default) -->
+            <div id="salaryInputs" class="input-section hidden">
+                <div class="form-group">
+                    <label for="annualSalary">Annual Salary ($)</label>
+                    <input type="number" id="annualSalary" placeholder="60000" min="0" step="1">
+                </div>
+            </div>
+
+            <!-- Pay Frequency -->
+            <div class="form-group">
+                <label for="payFrequency">Pay Frequency</label>
+                <select id="payFrequency">
+                    <option value="weekly">Weekly</option>
+                    <option value="biweekly" selected>Biweekly</option>
+                    <option value="semimonthly">Semi-monthly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+
+            <!-- State Selection -->
+            <div class="form-group">
+                <label for="state">State (for tax estimate)</label>
+                <select id="state">
+                    <option value="ca">California</option>
+                    <option value="tx">Texas</option>
+                    <option value="ny">New York</option>
+                    <option value="fl">Florida</option>
+                    <option value="wa">Washington</option>
+                    <option value="il">Illinois</option>
+                    <option value="pa">Pennsylvania</option>
+                    <option value="oh">Ohio</option>
+                    <option value="default" selected>Other</option>
+                </select>
+            </div>
+
+            <!-- Tax Rate -->
+            <div class="form-group">
+                <label for="taxRate">Estimated Tax Rate (%)</label>
+                <select id="taxRate">
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="20" selected>20%</option>
+                    <option value="25">25%</option>
+                    <option value="30">30%</option>
+                    <option value="custom">Custom...</option>
+                </select>
+            </div>
+
+            <!-- Custom Tax Rate (hidden by default) -->
+            <div id="customTaxInput" class="form-group hidden">
+                <label for="customTaxValue">Custom Tax Rate (%)</label>
+                <input type="number" id="customTaxValue" placeholder="22" min="0" max="100" step="0.1">
+            </div>
+
+            <!-- Pre-tax Deductions -->
+            <div class="form-group">
+                <label for="pretaxDeductions">Pre-tax Deductions ($) <span class="optional">— optional</span></label>
+                <input type="number" id="pretaxDeductions" placeholder="0" min="0" step="0.01">
+            </div>
+
+            <!-- Calculate Button -->
+            <button class="calculate-btn" onclick="calculatePaycheck()">Calculate</button>
+
+            <!-- Results Section (hidden until calculated) -->
+            <div id="resultsContainer" class="results-container hidden">
+                <h4>Your Estimate</h4>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <span class="result-label">Gross Pay <span class="result-period" id="resultPeriodLabel">(Biweekly)</span></span>
+                        <span class="result-value" id="grossPayResult">$0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Estimated Taxes</span>
+                        <span class="result-value result-negative" id="taxesResult">-$0.00</span>
+                    </div>
+                    <div class="result-item result-highlight">
+                        <span class="result-label">Take-Home Pay</span>
+                        <span class="result-value result-primary" id="takeHomeResult">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="results-summary">
+                    <p><strong>Estimated Annual Net Income:</strong> <span id="annualNetResult">$0.00</span></p>
+                    <p><strong>Estimated Monthly Net Income:</strong> <span id="monthlyNetResult">$0.00</span></p>
+                </div>
+
+                <div class="results-note">
+                    <p><strong>⚠️ Disclaimer:</strong> This is an estimate based on your inputs. Actual take-home pay may differ due to additional deductions, benefits, and state/local tax variations. Consult a tax professional for accurate information.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AD SLOT: Below Calculator -->
+
+    <!-- SEO Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2>How Take-Home Pay Is Calculated</h2>
+            <p>Your take-home pay (also called net pay) is what you actually receive after taxes and pre-tax deductions are subtracted from your gross pay. The calculation is straightforward:</p>
+            <p><strong>Gross Pay − Taxes − Pre-tax Deductions = Take-Home Pay</strong></p>
+            <p>This calculator estimates federal and state taxes based on your inputs and the selected tax rate. Keep in mind that actual taxes depend on many factors, including your filing status, dependents, and other income sources.</p>
+
+            <!-- AD SLOT: In-Content -->
+
+            <h2>Gross Pay vs. Net Pay</h2>
+            <p><strong>Gross pay</strong> is your total earnings before any deductions. For hourly workers, it's calculated as hourly rate × hours worked. For salaried employees, it's your annual salary divided by the number of pay periods.</p>
+            <p><strong>Net pay</strong> is what lands in your bank account after taxes and pre-tax deductions. Common deductions include:</p>
+            <ul>
+                <li>Federal income tax withholding</li>
+                <li>State and local income tax (if applicable)</li>
+                <li>Social Security and Medicare (FICA taxes)</li>
+                <li>401(k) or retirement plan contributions</li>
+                <li>Health insurance premiums</li>
+            </ul>
+
+            <h2>Why Your Actual Paycheck May Be Different</h2>
+            <p>This calculator provides an estimate based on general assumptions. Your actual paycheck may differ because:</p>
+            <ul>
+                <li><strong>W-4 Adjustments:</strong> The number of allowances you claim affects your withholding.</li>
+                <li><strong>Bonuses & Overtime:</strong> Extra income can push you into a higher tax bracket.</li>
+                <li><strong>State & Local Taxes:</strong> Tax rates vary significantly by location.</li>
+                <li><strong>Additional Deductions:</strong> Childcare, commuter benefits, FSA contributions, and other deductions reduce take-home pay.</li>
+                <li><strong>Tax Credits:</strong> Child Tax Credits and other credits can increase your refund.</li>
+                <li><strong>Multiple Jobs:</strong> Income from side gigs or second jobs affects your overall tax liability.</li>
+            </ul>
+
+            <!-- AD SLOT: Sidebar/Bottom -->
+
+            <h2>Tips to Increase Your Take-Home Pay</h2>
+            <p>While your gross pay is often fixed by your employer, there are strategies to increase what you actually take home:</p>
+            <ul>
+                <li><strong>Adjust Your W-4:</strong> Claim fewer allowances to reduce withholding (though you'll owe taxes at year-end). Or claim more to get a bigger paycheck now.</li>
+                <li><strong>Maximize Pre-tax Deductions:</strong> Contribute to 401(k), HSA, or FSA accounts to reduce your taxable income.</li>
+                <li><strong>Use Tax Credits:</strong> Ensure you're eligible for credits like the Earned Income Tax Credit (EITC) or Child Tax Credit.</li>
+                <li><strong>Side Income & Freelancing:</strong> Consider gig work, but remember to set aside money for self-employment taxes.</li>
+                <li><strong>Negotiate Your Salary:</strong> Higher gross pay means higher take-home (even after taxes).</li>
+                <li><strong>Move to a Lower-Tax State:</strong> If possible, relocating to a state with lower income tax can significantly increase your net income.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- AD SLOT: Above Footer -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; 2025 Paycheck Clarity. All rights reserved. This site is for educational and informational purposes only.</p>
+                <p>More useful tools coming soon: movie night generators, fuel cost calculators, recipe finders, prayer boards, and more.</p>
+                <p><a href="the-only-sites.html" class="footer-link">Visit The Only Sites You'll Ever Need →</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                <a href="terms.html" class="footer-link">Terms of Service</a>
+                <a href="cookies.html" class="footer-link">Cookie Policy</a>
+                <a href="about.html" class="footer-link">About Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Pay Type Toggle
+        document.querySelectorAll('input[name="payType"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const hourlyInputs = document.getElementById('hourlyInputs');
+                const salaryInputs = document.getElementById('salaryInputs');
+                
+                if (this.value === 'hourly') {
+                    hourlyInputs.classList.remove('hidden');
+                    salaryInputs.classList.add('hidden');
+                } else {
+                    hourlyInputs.classList.add('hidden');
+                    salaryInputs.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Tax Rate Custom Input
+        document.getElementById('taxRate').addEventListener('change', function() {
+            const customInput = document.getElementById('customTaxInput');
+            if (this.value === 'custom') {
+                customInput.classList.remove('hidden');
+            } else {
+                customInput.classList.add('hidden');
+            }
+        });
+
+        // Main Calculate Function
+        function calculatePaycheck() {
+            let grossPayPeriod = 0;
+            const payType = document.querySelector('input[name="payType"]:checked').value;
+
+            // Calculate gross pay based on pay type
+            if (payType === 'hourly') {
+                const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+                const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
+                const weeklyGross = hourlyRate * hoursPerWeek;
+                
+                const frequency = document.getElementById('payFrequency').value;
+                if (frequency === 'weekly') {
+                    grossPayPeriod = weeklyGross;
+                } else if (frequency === 'biweekly') {
+                    grossPayPeriod = weeklyGross * 2;
+                } else if (frequency === 'semimonthly') {
+                    grossPayPeriod = (weeklyGross * 52) / 24; // 24 pay periods per year
+                } else if (frequency === 'monthly') {
+                    grossPayPeriod = (weeklyGross * 52) / 12;
+                }
+            } else {
+                const annualSalary = parseFloat(document.getElementById('annualSalary').value) || 0;
+                const frequency = document.getElementById('payFrequency').value;
+                
+                if (frequency === 'weekly') {
+                    grossPayPeriod = annualSalary / 52;
+                } else if (frequency === 'biweekly') {
+                    grossPayPeriod = annualSalary / 26;
+                } else if (frequency === 'semimonthly') {
+                    grossPayPeriod = annualSalary / 24;
+                } else if (frequency === 'monthly') {
+                    grossPayPeriod = annualSalary / 12;
+                }
+            }
+
+            // Get tax rate
+            let taxRate = parseFloat(document.getElementById('taxRate').value);
+            if (isNaN(taxRate)) {
+                taxRate = parseFloat(document.getElementById('customTaxValue').value) || 20;
+            }
+            taxRate = taxRate / 100;
+
+            // Get pre-tax deductions
+            const pretaxDeductions = parseFloat(document.getElementById('pretaxDeductions').value) || 0;
+
+            // Calculate taxes and take-home
+            const taxableGross = Math.max(0, grossPayPeriod - pretaxDeductions);
+            const estimatedTaxes = taxableGross * taxRate;
+            const takeHome = grossPayPeriod - estimatedTaxes - pretaxDeductions;
+
+            // Calculate annual and monthly
+            const frequency = document.getElementById('payFrequency').value;
+            let periodsPerYear = 26;
+            if (frequency === 'weekly') periodsPerYear = 52;
+            if (frequency === 'semimonthly') periodsPerYear = 24;
+            if (frequency === 'monthly') periodsPerYear = 12;
+
+            const annualNet = takeHome * periodsPerYear;
+            const monthlyNet = annualNet / 12;
+
+            // Update results
+            const periodLabels = {
+                'weekly': 'Weekly',
+                'biweekly': 'Biweekly',
+                'semimonthly': 'Semi-monthly',
+                'monthly': 'Monthly'
+            };
+
+            document.getElementById('resultPeriodLabel').textContent = `(${periodLabels[frequency]})`;
+            document.getElementById('grossPayResult').textContent = formatCurrency(grossPayPeriod);
+            document.getElementById('taxesResult').textContent = `-${formatCurrency(estimatedTaxes)}`;
+            document.getElementById('takeHomeResult').textContent = formatCurrency(takeHome);
+            document.getElementById('annualNetResult').textContent = formatCurrency(annualNet);
+            document.getElementById('monthlyNetResult').textContent = formatCurrency(monthlyNet);
+
+            // Show results
+            document.getElementById('resultsContainer').classList.remove('hidden');
+        }
+
+        // Format currency helper
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        // Allow Enter key to calculate
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculatePaycheck();
+            }
+        });
+    </script>
+</body>
+</html>
